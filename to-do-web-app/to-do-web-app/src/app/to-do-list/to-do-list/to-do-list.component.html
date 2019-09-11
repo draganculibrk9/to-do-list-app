@@ -1,0 +1,39 @@
+<form>
+    <div class="form-group row">
+        <label for="title" class="col-sm-1 col-form-label">Title: </label>
+        <div class="col-sm-3 pl-0">
+            <input (focusout)="editOrCreateToDoList()" type="text" class="form-control" id="title" [(ngModel)]="this.toDoList.title" name="title">
+        </div>
+        <div class="col-sm-1"></div>
+        <label class="col-sm-2 col-form-label" for="date" *ngIf="this.toDoList.reminded && this.toDoList.id != null">Reminder date: </label>
+        <div class="col-sm-3 pl-0" *ngIf="this.toDoList.reminded && this.toDoList.id != null">
+            <input type="datetime-local" class="form-control" id="date" [(ngModel)]="this.toDoList.reminderDate" name="reminderDate">
+        </div>
+    </div>
+    <div class="form-group row mb-0">
+        <label class="col-sm-1 col-form-label" for="items">Items: </label>
+        <div class="col-sm-3 pl-0" name="items">
+            <to-do-item (refreshItems)="onRefreshItems()" [toDoListId]="this.toDoList.id"></to-do-item>
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 pl-0" *ngIf="this.toDoList.reminded && this.toDoList.id != null">
+            <button class="btn btn-primary" (click)="addReminder()">Add Reminder</button>
+        </div>
+    </div>
+    <div class="row mt-0">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3 pl-0">
+            <div dnd-sortable-container [sortableData]="this.notCompleted()">
+                <div *ngFor="let item of this.notCompleted()" dnd-sortable [sortableIndex]="item.position" [dragData]="item" (onDropSuccess)="onMove($event, item.position)">
+                    <to-do-item (refreshItems)="onRefreshItems()" [toDoItem]="item"></to-do-item>
+                </div>
+            </div>
+            <hr *ngIf="this.completed().length != 0">
+            <div dnd-sortable-container [sortableData]="this.completed()">
+                <div *ngFor="let item of this.completed()" dnd-sortable [sortableIndex]="item.position" [dragData]="item" (onDropSuccess)="onMove($event, item.position)">
+                    <to-do-item (refreshItems)="onRefreshItems()" [toDoItem]="item"></to-do-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

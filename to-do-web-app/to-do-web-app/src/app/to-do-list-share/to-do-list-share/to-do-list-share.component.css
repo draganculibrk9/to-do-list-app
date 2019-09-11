@@ -1,0 +1,7 @@
+form {
+    margin-top: 5%;
+}
+
+#itemsDiv {
+    pointer-events: none;
+}

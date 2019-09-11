@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend" *ngIf="this.toDoItem.id != null">
+        <div class="input-group-text">
+            <input (change)="editToDoItem()" type="checkbox" [(ngModel)]="this.toDoItem.completed" name="completed">
+        </div>
+    </div>
+    <input (focusout)="editOrCreateToDoItem()" type="text" class="form-control" [(ngModel)]="this.toDoItem.description" name="description">
+    <div class="input-group-append" *ngIf="this.toDoItem.id != null">
+        <button (click)="removeToDoItem()" class="btn btn-secondary btn-sm">x</button>
+    </div>
+</div>

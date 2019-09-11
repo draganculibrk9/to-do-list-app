@@ -1,0 +1,18 @@
+<div class="container">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" [routerLink]="['/dashboard']">TO DO</a>
+        <ul class="navbar-nav" *ngIf="authService.isLoggedIn">
+            <a [routerLinkActive]="['active']" [routerLink]="['/dashboard']"  class="nav-link text-nowrap active">DASHBOARD</a>
+            <a [routerLinkActive]="['active']" [routerLink]="['/to-do-list']" class="nav-link text-nowrap">NEW LIST</a>
+        </ul>
+        <form class="form-inline" *ngIf="authService.isLoggedIn">
+            <input (keyup)="search(title.value)" #title class="form-control ml-sm-3" type="text" placeholder="Find list by title...">
+        </form>
+        <ul class="navbar-nav ml-auto">
+            <span class="navbar-text ml-auto mr-sm-1" *ngIf="authService.isLoggedIn">{{authService.getUsername}}</span>
+            <a [routerLinkActive]="['active']" *ngIf="!authService.isLoggedIn" (click)="authService.login()" class="nav-link text-nowrap">LOG IN</a>
+            <a [routerLinkActive]="['active']" *ngIf="authService.isLoggedIn" (click)="authService.logout()" class="nav-link text-nowrap active">LOG OUT</a>
+        </ul>
+    </nav>
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,8 @@
+<div id="previewsDiv" class="card-columns">
+    <div dnd-sortable-container [sortableData]="this.notReminded()">
+        <to-do-preview (removeToDoListEvent)="getToDoLists()" *ngFor="let list of this.notReminded()" [toDoList]="list" dnd-sortable [sortableIndex]="list.position" [dragData]="list" (onDropSuccess)="onMove($event, list.position)"></to-do-preview>
+    </div>
+    <div dnd-sortable-container [sortableData]="this.reminded()">
+        <to-do-preview (removeToDoListEvent)="getToDoLists()" *ngFor="let list of this.reminded()" [toDoList]="list"  dnd-sortable [sortableIndex]="list.position" [dragData]="list" (onDropSuccess)="onMove($event, list.position)"></to-do-preview>
+    </div>
+</div>

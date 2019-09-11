@@ -1,0 +1,28 @@
+<form>
+    <div class="form-group row">
+        <label for="title" class="col-sm-1 col-form-label">Title: </label>
+        <div class="col-sm-3 pl-0">
+            <input type="text" class="form-control" id="title" [(ngModel)]="this.toDoList.title" name="title" readonly>
+        </div>
+        <div class="col-sm-1"></div>
+        <label class="col-sm-2 col-form-label" for="date" *ngIf="this.toDoList.reminded && this.toDoList.id != null">Reminder date: </label>
+        <div class="col-sm-3 pl-0" *ngIf="this.toDoList.reminded && this.toDoList.id != null">
+            <input type="datetime-local" class="form-control" id="date" [(ngModel)]="this.toDoList.reminderDate" name="reminderDate" readonly>
+        </div>
+    </div>
+    <div class="form-group row mb-0">
+        <label class="col-sm-1 col-form-label" for="items">Items: </label>
+    </div>
+    <div class="row mt-0">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3 pl-0" id="itemsDiv">
+            <div *ngFor="let item of this.notCompleted()">
+                <to-do-item [toDoItem]="item"></to-do-item>
+            </div>
+            <hr *ngIf="this.completed().length != 0">
+            <div *ngFor="let item of this.completed()">
+                <to-do-item [toDoItem]="item"></to-do-item>
+            </div>
+        </div>
+    </div>
+</form>
